@@ -42,3 +42,7 @@ To run all tests:
 ```
 ./vendor/bin/sail artisan test 
 ```
+
+## Packages used
+**[spatie/crawler](https://github.com/spatie/crawler)**
+
