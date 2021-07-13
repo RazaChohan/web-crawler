@@ -18,7 +18,7 @@ class CrawlerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'crawler:crawl {' . self::URL_ARGUMENT . '} {--' . self::DEPTH_OPTION . '=}';
+    protected $signature = 'crawler:crawl {' . self::URL_ARGUMENT . '} {--' . self::DEPTH_OPTION . '=1}';
 
     /**
      * The console command description.
@@ -46,6 +46,10 @@ class CrawlerCommand extends Command
     {
         $siteMap = new SiteMap();
         $depthLimit = $this->option(self::DEPTH_OPTION);
+        if (empty($depthLimit)) {
+            $this->error('Depth limit is required');
+            return 1;
+        }
         $url = $this->argument(self::URL_ARGUMENT);
         $this->info('Crawling link started....');
         Crawler::create()
@@ -57,6 +61,8 @@ class CrawlerCommand extends Command
             ->startCrawling($url);
 
         $this->outputSiteMap($siteMap);
+
+        return 0;
     }
 
     /**
