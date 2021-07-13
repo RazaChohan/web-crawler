@@ -59,12 +59,10 @@ class CrawlObserver extends \Spatie\Crawler\CrawlObservers\CrawlObserver
         ?UriInterface $foundOnUrl = null
     ): void {
          $linksExtractor = new LinksExtractorService();
-         if (!empty($response->getBody())) {
-             list($linkedPages, $pageAssets) = $linksExtractor->extractAssetsAndLinkedPages($response->getBody());
-             $this->pageLinks->setLinkedPages($linkedPages);
-             $this->pageLinks->setAssets($pageAssets);
-             $this->siteMap->addPageLinks($this->pageLinks);
-         }
+         list($linkedPages, $pageAssets) = $linksExtractor->extractAssetsAndLinkedPages($response->getBody());
+         $this->pageLinks->setLinkedPages($linkedPages);
+         $this->pageLinks->setAssets($pageAssets);
+         $this->siteMap->addPageLinks($this->pageLinks);
      }
 
     /**

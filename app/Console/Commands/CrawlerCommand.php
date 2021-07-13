@@ -52,6 +52,7 @@ class CrawlerCommand extends Command
             ->setCrawlObserver(new CrawlObserver($siteMap))
             ->setCrawlProfile(new CrawlSubdomains(pathinfo($url, PATHINFO_DIRNAME)))
             ->setMaximumDepth($depthLimit)
+            ->setConcurrency(2)
             ->ignoreRobots()
             ->startCrawling($url);
 
@@ -70,7 +71,7 @@ class CrawlerCommand extends Command
              * @var $pageLink LinkInfo
              */
             foreach ($pageLinks->getLinkedPages() as $pageLink) {
-                $this->info(' --> ' . $pageLink->getText() . ' -- ' . $pageLink->getLink());
+                $this->info(' --> ' . $pageLink->getText() . ' -- (' . $pageLink->getLink() . ')');
             }
             $this->info("\n........................ Page assets ........................\n");
             /**

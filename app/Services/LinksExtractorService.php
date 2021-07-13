@@ -9,17 +9,20 @@ use Psr\Http\Message\StreamInterface;
 class LinksExtractorService
 {
     /**
-     * @param StreamInterface $requestBody
+     * @param StreamInterface $responseBody
      *
      * @return array
      */
-    public function extractAssetsAndLinkedPages(StreamInterface $requestBody): array
+    public function extractAssetsAndLinkedPages(StreamInterface $responseBody): array
     {
+        $linkedPages = [];
+        $pageAssets = [];
         $htmlDom = new DOMDocument();
-        @$htmlDom->loadHTML($requestBody);
-        $linkedPages = $this->extractLinkedPages($htmlDom);
-        $pageAssets = $this->extractAssets($htmlDom);
-
+        if ($responseBody->getSize()) {
+            @$htmlDom->loadHTML($responseBody);
+            $linkedPages = $this->extractLinkedPages($htmlDom);
+            $pageAssets = $this->extractAssets($htmlDom);
+        }
         return [$linkedPages, $pageAssets];
     }
 
