@@ -32,7 +32,7 @@ cp .env.example .env
 **Tool will output the linked pages and assets used on each page**
 
 ```
-/vendor/bin/sail artisan crawler:crawl https://medium.com/inside-sumup --depth=1
+./vendor/bin/sail artisan crawler:crawl https://medium.com/inside-sumup --depth=1
 ```
 
 ## Testing 
